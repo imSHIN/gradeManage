@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.schoolCard.dao.CardMapper" >
+  <resultMap id="BaseResultMap" type="com.schoolCard.entity.Card" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="studentId" property="studentid" jdbcType="VARCHAR" />
+    <result column="overage" property="overage" jdbcType="INTEGER" />
+    <result column="cardStatus" property="cardstatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, studentId, overage, cardStatus
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from card
+    where studentId = #{studentId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from card
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from card
+    where studentId = #{studentId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.schoolCard.entity.Card" >
+    insert into card (id, studentId, overage, 
+      cardStatus)
+    values (#{id,jdbcType=VARCHAR}, #{studentid,jdbcType=VARCHAR}, #{overage,jdbcType=INTEGER}, 
+      #{cardstatus,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.schoolCard.entity.Card" >
+    insert into card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="studentid != null" >
+        studentId,
+      </if>
+      <if test="overage != null" >
+        overage,
+      </if>
+      <if test="cardstatus != null" >
+        cardStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="studentid != null" >
+        #{studentid,jdbcType=VARCHAR},
+      </if>
+      <if test="overage != null" >
+        #{overage,jdbcType=INTEGER},
+      </if>
+      <if test="cardstatus != null" >
+        #{cardstatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.schoolCard.entity.Card" >
+    update card
+    <set >
+      <if test="studentid != null" >
+        studentId = #{studentid,jdbcType=VARCHAR},
+      </if>
+      <if test="overage != null" >
+        overage = overage + #{overage,jdbcType=INTEGER},
+      </if>
+      <if test="cardstatus != null" >
+        cardStatus = #{cardstatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where studentId = #{studentid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.schoolCard.entity.Card" >
+    update card
+    set studentId = #{studentid,jdbcType=VARCHAR},
+      overage = #{overage,jdbcType=INTEGER},
+      cardStatus = #{cardstatus,jdbcType=TINYINT}
+    where studentId = #{studentid,jdbcType=VARCHAR}
+  </update>
+</mapper>

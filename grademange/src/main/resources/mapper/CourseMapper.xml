@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.schoolCard.dao.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.schoolCard.entity.Course" >
+    <id column="jzx_id" property="jzxId" jdbcType="INTEGER" />
+    <result column="jzx_name" property="jzxName" jdbcType="VARCHAR" />
+    <result column="jzx_teachername" property="jzxTeachername" jdbcType="VARCHAR" />
+    <result column="jzx_schoolitem" property="jzxSchoolitem" jdbcType="VARCHAR" />
+    <result column="jzx_hour" property="jzxHour" jdbcType="INTEGER" />
+    <result column="jzx_exam" property="jzxExam" jdbcType="VARCHAR" />
+    <result column="jzx_score" property="jzxScore" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jzx_id, jzx_name, jzx_teachername, jzx_schoolitem, jzx_hour, jzx_exam, jzx_score
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jiangzx_course
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jiangzx_course
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.schoolCard.entity.Course" >
+    insert into jiangzx_course (jzx_id, jzx_name, jzx_teachername, 
+      jzx_schoolitem, jzx_hour, jzx_exam, 
+      jzx_score)
+    values (#{jzxId,jdbcType=INTEGER}, #{jzxName,jdbcType=VARCHAR}, #{jzxTeachername,jdbcType=VARCHAR}, 
+      #{jzxSchoolitem,jdbcType=VARCHAR}, #{jzxHour,jdbcType=INTEGER}, #{jzxExam,jdbcType=VARCHAR}, 
+      #{jzxScore,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.schoolCard.entity.Course" >
+    insert into jiangzx_course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jzxId != null" >
+        jzx_id,
+      </if>
+      <if test="jzxName != null" >
+        jzx_name,
+      </if>
+      <if test="jzxTeachername != null" >
+        jzx_teachername,
+      </if>
+      <if test="jzxSchoolitem != null" >
+        jzx_schoolitem,
+      </if>
+      <if test="jzxHour != null" >
+        jzx_hour,
+      </if>
+      <if test="jzxExam != null" >
+        jzx_exam,
+      </if>
+      <if test="jzxScore != null" >
+        jzx_score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jzxId != null" >
+        #{jzxId,jdbcType=INTEGER},
+      </if>
+      <if test="jzxName != null" >
+        #{jzxName,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxTeachername != null" >
+        #{jzxTeachername,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxSchoolitem != null" >
+        #{jzxSchoolitem,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxHour != null" >
+        #{jzxHour,jdbcType=INTEGER},
+      </if>
+      <if test="jzxExam != null" >
+        #{jzxExam,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxScore != null" >
+        #{jzxScore,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.schoolCard.entity.Course" >
+    update jiangzx_course
+    <set >
+      <if test="jzxName != null" >
+        jzx_name = #{jzxName,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxTeachername != null" >
+        jzx_teachername = #{jzxTeachername,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxSchoolitem != null" >
+        jzx_schoolitem = #{jzxSchoolitem,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxHour != null" >
+        jzx_hour = #{jzxHour,jdbcType=INTEGER},
+      </if>
+      <if test="jzxExam != null" >
+        jzx_exam = #{jzxExam,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxScore != null" >
+        jzx_score = #{jzxScore,jdbcType=INTEGER},
+      </if>
+    </set>
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.schoolCard.entity.Course" >
+    update jiangzx_course
+    set jzx_name = #{jzxName,jdbcType=VARCHAR},
+      jzx_teachername = #{jzxTeachername,jdbcType=VARCHAR},
+      jzx_schoolitem = #{jzxSchoolitem,jdbcType=VARCHAR},
+      jzx_hour = #{jzxHour,jdbcType=INTEGER},
+      jzx_exam = #{jzxExam,jdbcType=VARCHAR},
+      jzx_score = #{jzxScore,jdbcType=INTEGER}
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByClass" resultType="hashmap" parameterType="java.lang.Integer">
+    SELECT * FROM jiangzx_course
+    WHERE jzx_id in (SELECT jzx_courseid FROM jiangzx_teach WHERE
+    jzx_classid = #{id})
+  </select>
+</mapper>

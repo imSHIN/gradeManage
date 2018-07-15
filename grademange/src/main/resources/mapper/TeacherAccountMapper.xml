@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.schoolCard.dao.TeacherAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.schoolCard.entity.TeacherAccount" >
+    <result column="jzx_teacherid" property="jzxTeacherid" jdbcType="INTEGER" />
+    <result column="jzx_password" property="jzxPassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.schoolCard.entity.TeacherAccount" >
+    insert into jiangzx_teacheraccount (jzx_teacherid, jzx_password)
+    values (#{jzxTeacherid,jdbcType=INTEGER}, #{jzxPassword,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.schoolCard.entity.TeacherAccount" >
+    insert into jiangzx_teacheraccount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jzxTeacherid != null" >
+        jzx_teacherid,
+      </if>
+      <if test="jzxPassword != null" >
+        jzx_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jzxTeacherid != null" >
+        #{jzxTeacherid,jdbcType=INTEGER},
+      </if>
+      <if test="jzxPassword != null" >
+        #{jzxPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.schoolCard.entity.AdminAccount" >
+    update jiangzx_teacheraccount
+    set jzx_password = #{jzxPassword,jdbcType=VARCHAR}
+    where jzx_teacherid = #{jzxTeacherid,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jiangzx_teacheraccount
+    where jzx_teacherid = #{jzxId,jdbcType=INTEGER}
+  </delete>
+  <select id="select" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    *
+    from jiangzx_teacheraccount
+    where jzx_teacherid = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectall" resultMap="BaseResultMap">
+    select *
+    from jiangzx_teacheraccount
+  </select>
+</mapper>

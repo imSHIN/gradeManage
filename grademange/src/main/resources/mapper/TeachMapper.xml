@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.schoolCard.dao.TeachMapper" >
+  <resultMap id="BaseResultMap" type="com.schoolCard.entity.Teach" >
+    <result column="jzx_teacherid" property="jzxTeacherid" jdbcType="INTEGER" />
+    <result column="jzx_classid" property="jzxClassid" jdbcType="INTEGER" />
+    <result column="jzx_courseid" property="jzxCourseid" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.schoolCard.entity.Teach" >
+    insert into jiangzx_teach (jzx_teacherid, jzx_classid, jzx_courseid
+      )
+    values (#{jzxTeacherid,jdbcType=INTEGER}, #{jzxClassid,jdbcType=INTEGER}, #{jzxCourseid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.schoolCard.entity.Teach" >
+    insert into jiangzx_teach
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jzxTeacherid != null" >
+        jzx_teacherid,
+      </if>
+      <if test="jzxClassid != null" >
+        jzx_classid,
+      </if>
+      <if test="jzxCourseid != null" >
+        jzx_courseid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jzxTeacherid != null" >
+        #{jzxTeacherid,jdbcType=INTEGER},
+      </if>
+      <if test="jzxClassid != null" >
+        #{jzxClassid,jdbcType=INTEGER},
+      </if>
+      <if test="jzxCourseid != null" >
+        #{jzxCourseid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

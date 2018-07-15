@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.schoolCard.dao.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.schoolCard.entity.Student" >
+    <id column="jzx_id" property="jzxId" jdbcType="VARCHAR" />
+    <result column="jzx_name" property="jzxName" jdbcType="VARCHAR" />
+    <result column="jzx_sex" property="jzxSex" jdbcType="VARCHAR" />
+    <result column="jzx_age" property="jzxAge" jdbcType="INTEGER" />
+    <result column="jzx_adress" property="jzxAdress" jdbcType="VARCHAR" />
+    <result column="jzx_allscore" property="jzxAllscore" jdbcType="INTEGER" />
+    <result column="jzx_teachername" property="jzxTeachername" jdbcType="VARCHAR" />
+    <result column="jzx_classid" property="jzxClassid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jzx_id, jzx_name, jzx_sex, jzx_age, jzx_adress, jzx_allscore, jzx_teachername, jzx_classid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from jiangzx_student
+    where jzx_id = #{jzxId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from jiangzx_student
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from jiangzx_student
+    where jzx_id = #{jzxId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.schoolCard.entity.Student" >
+    insert into jiangzx_student (jzx_id, jzx_name, jzx_sex, 
+      jzx_age, jzx_adress, jzx_allscore, 
+      jzx_teachername, jzx_classid)
+    values (#{jzxId,jdbcType=VARCHAR}, #{jzxName,jdbcType=VARCHAR}, #{jzxSex,jdbcType=VARCHAR}, 
+      #{jzxAge,jdbcType=INTEGER}, #{jzxAdress,jdbcType=VARCHAR}, #{jzxAllscore,jdbcType=INTEGER}, 
+      #{jzxTeachername,jdbcType=VARCHAR}, #{jzxClassid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.schoolCard.entity.Student" >
+    insert into jiangzx_student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jzxId != null" >
+        jzx_id,
+      </if>
+      <if test="jzxName != null" >
+        jzx_name,
+      </if>
+      <if test="jzxSex != null" >
+        jzx_sex,
+      </if>
+      <if test="jzxAge != null" >
+        jzx_age,
+      </if>
+      <if test="jzxAdress != null" >
+        jzx_adress,
+      </if>
+      <if test="jzxAllscore != null" >
+        jzx_allscore,
+      </if>
+      <if test="jzxTeachername != null" >
+        jzx_teachername,
+      </if>
+      <if test="jzxClassid != null" >
+        jzx_classid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jzxId != null" >
+        #{jzxId,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxName != null" >
+        #{jzxName,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxSex != null" >
+        #{jzxSex,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxAge != null" >
+        #{jzxAge,jdbcType=INTEGER},
+      </if>
+      <if test="jzxAdress != null" >
+        #{jzxAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxAllscore != null" >
+        #{jzxAllscore,jdbcType=INTEGER},
+      </if>
+      <if test="jzxTeachername != null" >
+        #{jzxTeachername,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxClassid != null" >
+        #{jzxClassid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.schoolCard.entity.Student" >
+    update jiangzx_student
+    <set >
+      <if test="jzxName != null" >
+        jzx_name = #{jzxName,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxSex != null" >
+        jzx_sex = #{jzxSex,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxAge != null" >
+        jzx_age = #{jzxAge,jdbcType=INTEGER},
+      </if>
+      <if test="jzxAdress != null" >
+        jzx_adress = #{jzxAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxAllscore != null" >
+        jzx_allscore = #{jzxAllscore,jdbcType=INTEGER},
+      </if>
+      <if test="jzxTeachername != null" >
+        jzx_teachername = #{jzxTeachername,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxClassid != null" >
+        jzx_classid = #{jzxClassid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where jzx_id = #{jzxId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.schoolCard.entity.Student" >
+    update jiangzx_student
+    set jzx_name = #{jzxName,jdbcType=VARCHAR},
+      jzx_sex = #{jzxSex,jdbcType=VARCHAR},
+      jzx_age = #{jzxAge,jdbcType=INTEGER},
+      jzx_adress = #{jzxAdress,jdbcType=VARCHAR},
+      jzx_allscore = #{jzxAllscore,jdbcType=INTEGER},
+      jzx_teachername = #{jzxTeachername,jdbcType=VARCHAR},
+      jzx_classid = #{jzxClassid,jdbcType=INTEGER}
+    where jzx_id = #{jzxId,jdbcType=VARCHAR}
+  </update>
+  <select id="adressSelect" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from jiangzx_student
+    where jzx_adress = #{jzxAdress,jdbcType=VARCHAR}
+  </select>
+</mapper>

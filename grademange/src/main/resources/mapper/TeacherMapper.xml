@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.schoolCard.dao.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.schoolCard.entity.Teacher" >
+    <id column="jzx_id" property="jzxId" jdbcType="INTEGER" />
+    <result column="jzx_name" property="jzxName" jdbcType="VARCHAR" />
+    <result column="jzx_sex" property="jzxSex" jdbcType="VARCHAR" />
+    <result column="jzx_age" property="jzxAge" jdbcType="INTEGER" />
+    <result column="jzx_position" property="jzxPosition" jdbcType="VARCHAR" />
+    <result column="jzx_tel" property="jzxTel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jzx_id, jzx_name, jzx_sex, jzx_age, jzx_position, jzx_tel
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jiangzx_teacher
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from jiangzx_teacher
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jiangzx_teacher
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.schoolCard.entity.Teacher" >
+    insert into jiangzx_teacher (jzx_id, jzx_name, jzx_sex, 
+      jzx_age, jzx_position, jzx_tel
+      )
+    values (#{jzxId,jdbcType=INTEGER}, #{jzxName,jdbcType=VARCHAR}, #{jzxSex,jdbcType=VARCHAR}, 
+      #{jzxAge,jdbcType=INTEGER}, #{jzxPosition,jdbcType=VARCHAR}, #{jzxTel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.schoolCard.entity.Teacher" >
+    insert into jiangzx_teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jzxId != null" >
+        jzx_id,
+      </if>
+      <if test="jzxName != null" >
+        jzx_name,
+      </if>
+      <if test="jzxSex != null" >
+        jzx_sex,
+      </if>
+      <if test="jzxAge != null" >
+        jzx_age,
+      </if>
+      <if test="jzxPosition != null" >
+        jzx_position,
+      </if>
+      <if test="jzxTel != null" >
+        jzx_tel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jzxId != null" >
+        #{jzxId,jdbcType=INTEGER},
+      </if>
+      <if test="jzxName != null" >
+        #{jzxName,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxSex != null" >
+        #{jzxSex,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxAge != null" >
+        #{jzxAge,jdbcType=INTEGER},
+      </if>
+      <if test="jzxPosition != null" >
+        #{jzxPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxTel != null" >
+        #{jzxTel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.schoolCard.entity.Teacher" >
+    update jiangzx_teacher
+    <set >
+      <if test="jzxName != null" >
+        jzx_name = #{jzxName,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxSex != null" >
+        jzx_sex = #{jzxSex,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxAge != null" >
+        jzx_age = #{jzxAge,jdbcType=INTEGER},
+      </if>
+      <if test="jzxPosition != null" >
+        jzx_position = #{jzxPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxTel != null" >
+        jzx_tel = #{jzxTel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.schoolCard.entity.Teacher" >
+    update jiangzx_teacher
+    set jzx_name = #{jzxName,jdbcType=VARCHAR},
+      jzx_sex = #{jzxSex,jdbcType=VARCHAR},
+      jzx_age = #{jzxAge,jdbcType=INTEGER},
+      jzx_position = #{jzxPosition,jdbcType=VARCHAR},
+      jzx_tel = #{jzxTel,jdbcType=VARCHAR}
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </update>
+  <select id="queryAllCourse" resultType="hashmap" parameterType="java.lang.Integer">
+    SELECT * FROM teachsourse
+    WHERE jzx_id = #{id}
+  </select>
+</mapper>

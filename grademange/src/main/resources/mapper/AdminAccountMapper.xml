@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.schoolCard.dao.AdminAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.schoolCard.entity.AdminAccount" >
+    <id column="jzx_id" property="jzxId" jdbcType="INTEGER" />
+    <result column="jzx_password" property="jzxPassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jzx_id, jzx_password
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jiangzx_adminaccount
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jiangzx_adminaccount
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.schoolCard.entity.AdminAccount" >
+    insert into jiangzx_adminaccount (jzx_id, jzx_password)
+    values (#{jzxId,jdbcType=INTEGER}, #{jzxPassword,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.schoolCard.entity.AdminAccount" >
+    insert into jiangzx_adminaccount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jzxId != null" >
+        jzx_id,
+      </if>
+      <if test="jzxPassword != null" >
+        jzx_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jzxId != null" >
+        #{jzxId,jdbcType=INTEGER},
+      </if>
+      <if test="jzxPassword != null" >
+        #{jzxPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.schoolCard.entity.AdminAccount" >
+    update jiangzx_adminaccount
+    <set >
+      <if test="jzxPassword != null" >
+        jzx_password = #{jzxPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.schoolCard.entity.AdminAccount" >
+    update jiangzx_adminaccount
+    set jzx_password = #{jzxPassword,jdbcType=VARCHAR}
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </update>
+</mapper>

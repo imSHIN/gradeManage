@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.schoolCard.dao.ClassesMapper" >
+  <resultMap id="BaseResultMap" type="com.schoolCard.entity.Classes" >
+    <id column="jzx_id" property="jzxId" jdbcType="INTEGER" />
+    <result column="jzx_name" property="jzxName" jdbcType="VARCHAR" />
+    <result column="jzx_majorid" property="jzxMajorid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jzx_id, jzx_name, jzx_majorid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jiangzx_class
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jiangzx_class
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.schoolCard.entity.Classes" >
+    insert into jiangzx_class (jzx_id, jzx_name, jzx_majorid
+      )
+    values (#{jzxId,jdbcType=INTEGER}, #{jzxName,jdbcType=VARCHAR}, #{jzxMajorid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.schoolCard.entity.Classes" >
+    insert into jiangzx_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jzxId != null" >
+        jzx_id,
+      </if>
+      <if test="jzxName != null" >
+        jzx_name,
+      </if>
+      <if test="jzxMajorid != null" >
+        jzx_majorid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jzxId != null" >
+        #{jzxId,jdbcType=INTEGER},
+      </if>
+      <if test="jzxName != null" >
+        #{jzxName,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxMajorid != null" >
+        #{jzxMajorid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.schoolCard.entity.Classes" >
+    update jiangzx_class
+    <set >
+      <if test="jzxName != null" >
+        jzx_name = #{jzxName,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxMajorid != null" >
+        jzx_majorid = #{jzxMajorid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.schoolCard.entity.Classes" >
+    update jiangzx_class
+    set jzx_name = #{jzxName,jdbcType=VARCHAR},
+      jzx_majorid = #{jzxMajorid,jdbcType=INTEGER}
+    where jzx_id = #{jzxId,jdbcType=INTEGER}
+  </update>
+</mapper>
